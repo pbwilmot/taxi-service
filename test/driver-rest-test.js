@@ -76,7 +76,7 @@ suite('Driver Tests', function() {
   			loc: [ 37.77493, -122.419416 ],
   	})
   	.end(function(e, res){
-      console.log(res.body)
+      // console.log(res.body)
       expect(e).to.eql(null)
       expect(typeof res.body).to.eql('object')
       expect(res.body.msg).to.eql('success')

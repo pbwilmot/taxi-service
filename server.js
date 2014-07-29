@@ -34,7 +34,7 @@ var DRIVER_ROOT = '/driver';
 var USER_ROOT 	= '/user';
 var ID_ROOT 	= '/:_id';
 // BASE SETUP
-// =============================================================================
+// ============================================================================
 
 // call the packages we need
 var express    	= require('express');
@@ -54,7 +54,7 @@ var Driver     	= require('./models/driver');
 var User     	= require('./models/user');
 
 // ROUTES FOR OUR API
-// =============================================================================
+// ============================================================================
 
 // create our router
 var router = express.Router();
@@ -66,88 +66,199 @@ router.use(function(req, res, next) {
 	next();
 });
 
-// ** DRIVER ROUTES **
-
-
 // on routes /driver
 // ----------------------------------------------------
 router.route(DRIVER_ROOT)
 
-	// create a Driver (accessed at POST -d {driver} /taxiservice/driver)
-	.post(function(req, res) {
-		
-		// create a new instance of the Driver model
-		var driver = new Driver();
-		driver.active = req.body.active;
-		driver.loc = req.body.loc;		
+	
+	.post(function(req, res) { postDriver(req, res) })
 
-		driver.save(function(err) {
-			if (err) {
-				res.send(err);
-			}
-			res.send(driver);
-			// res.json({ message: 'Driver created!' });
-		});
-
-		
-	})
-
-	// get all the Drivers (accessed at GET /taxiservice/driver)
-	.get(function(req, res) {
-		Driver.find(function(err, drivers) {
-			if (err) {
-				res.send(err);
-			}
-			res.send(drivers);
-		});
-	});
+	
+	.get(function(req, res) { getAllDrivers(req, res) });
 
 // on routes /driver/:_id	
 // ----------------------------------------------------
 router.route(DRIVER_ROOT + ID_ROOT)
 
-	// get the Driver with that id (accessed at GET /taxiservice/driver/:_id)
-	.get(function(req, res) {
-		Driver.findById(req.params._id, function(err, driver) {
+	.get(function(req, res) { getDriverById(req, res) })
+
+	.put(function(req, res) { updateDriver(req, res) })
+
+	.delete(function(req, res) { deleteDriver(req, res) });
+	
+// on routes /user
+// ----------------------------------------------------
+router.route(USER_ROOT)
+
+	
+	.post(function(req, res) { postUser(req, res) })
+
+	
+	.get(function(req, res) { getAllUsers(req, res) });
+
+// on routes /user/:_id	
+// ----------------------------------------------------
+router.route(USER_ROOT + ID_ROOT)
+
+	.get(function(req, res) { getUserById(req, res) })
+
+	.put(function(req, res) { updateUser(req, res) })
+
+	.delete(function(req, res) { deleteUser(req, res) });
+
+// USER FUNCTIONS
+//  ===========================================================================
+// create a User
+// accessed at POST -d {user} /taxiservice/user
+function postUser(req, res) {
+	// create a new instance of the Driver model
+	var user = new User();
+	user.name = req.body.name
+	user.phone = req.body.phone
+	user.loc = req.body.loc;
+
+	user.save(function(err) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(user);
+	});
+}
+
+// get all the Drivers 
+// accessed at GET /taxiservice/driver
+function getAllUsers(req, res) {
+	User.find(function(err, users) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(users);
+	});
+}
+
+// get the User with that id 
+//accessed at GET /taxiservice/user/:_id
+function getUserById(req, res) {
+	User.findById(req.params._id, function(err, user) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(user);
+	});
+}
+
+// update the user with this id 
+// accessed at PUT -d {user} /taxiservice/user/:id
+function updateUser(req, res) {
+	User.findById(req.params._id, function(err, user) {
+
+		if (err) {
+			res.send(err);
+		}
+
+		user.name = req.body.name
+		user.phone = req.body.phone
+		user.loc = req.body.loc;
+
+		user.save(function(err) {
 			if (err) {
 				res.send(err);
 			}
-			res.send(driver);
-		});
-	})
-
-	// update the driver with this id (accessed at PUT -d {driver} /taxiservice/driver/:id)
-	.put(function(req, res) {
-		Driver.findById(req.params._id, function(err, driver) {
-
-			if (err) {
-				res.send(err);
-			}
-
-			driver.active = req.body.active;
-			driver.loc = req.body.loc;
-			driver.save(function(err) {
-				if (err) {
-					res.send(err);
-				}
-				res.send({ msg: 'success' });
-			});
-
-		});
-	})
-
-	// delete the driver with this id (accessed at DELETE /taxiservice/driver/:id)
-	.delete(function(req, res) {
-		Driver.remove({
-			_id: req.params._id
-		}, function(err, driver) {
-			if (err) {
-				res.send(err);
-			}
-
 			res.send({ msg: 'success' });
 		});
+
 	});
+}
+
+// delete the user with this id 
+// accessed at DELETE /taxiservice/user/:id
+function deleteUser(req, res) {
+	User.remove({
+		_id: req.params._id
+	}, function(err, user) {
+		if (err) {
+			res.send(err);
+		}
+
+		res.send({ msg: 'success' });
+	});
+}
+
+// DRIVER FUNCTIONS
+//  ===========================================================================
+
+// create a Driver 
+// accessed at POST -d {driver} /taxiservice/driver
+function postDriver(req, res) {
+	// create a new instance of the Driver model
+	var driver = new Driver();
+	driver.active = req.body.active;
+	driver.loc = req.body.loc;		
+
+	driver.save(function(err) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(driver);
+	});
+}
+
+// get all the Drivers 
+// accessed at GET /taxiservice/driver
+function getAllDrivers(req, res) {
+	Driver.find(function(err, drivers) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(drivers);
+	});
+}
+
+// get the Driver with that id 
+//accessed at GET /taxiservice/driver/:_id
+function getDriverById(req, res) {
+	Driver.findById(req.params._id, function(err, driver) {
+		if (err) {
+			res.send(err);
+		}
+		res.send(driver);
+	});
+}
+
+// update the driver with this id 
+// accessed at PUT -d {driver} /taxiservice/driver/:id
+function updateDriver(req, res) {
+	Driver.findById(req.params._id, function(err, driver) {
+
+		if (err) {
+			res.send(err);
+		}
+
+		driver.active = req.body.active;
+		driver.loc = req.body.loc;
+		driver.save(function(err) {
+			if (err) {
+				res.send(err);
+			}
+			res.send({ msg: 'success' });
+		});
+
+	});
+}
+
+// delete the driver with this id 
+// accessed at DELETE /taxiservice/driver/:id
+function deleteDriver(req, res) {
+	Driver.remove({
+		_id: req.params._id
+	}, function(err, driver) {
+		if (err) {
+			res.send(err);
+		}
+
+		res.send({ msg: 'success' });
+	});
+}
 
 // ** USER ROUTES **
 
@@ -156,6 +267,6 @@ router.route(DRIVER_ROOT + ID_ROOT)
 app.use(ROOT, router);
 
 // START THE SERVER
-// =============================================================================
+// ============================================================================
 app.listen(port);
 console.log('Starting taxiservice on port ' + port);

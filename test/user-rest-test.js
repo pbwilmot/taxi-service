@@ -35,10 +35,9 @@ var user_sufix = "/user"
       	.end(function(e,res){
         	// console.log(res.body)
         	expect(e).to.eql(null)
-        	expect(res.body.length).to.eql(1)
         	// Expect that the _id field has been set
-        	expect(res.body[0]._id.length).to.eql(24)
-        	id = res.body[0]._id
+        	expect(res.body._id.length).to.eql(24)
+        	id = res.body._id
         	done()
       	})
   	})
@@ -100,7 +99,6 @@ var user_sufix = "/user"
 	        expect(res.body._id).to.eql(id)
 	        expect(res.body.name).to.eql('Peter')
 	        expect(res.body.phone).to.eql('(111)111-1111)')
-	        expect(res.body.active).to.eql(false)
 	        expect(res.body.loc).to.eql([ 37.77493, -122.419416 ])
 	        done()
       	})
