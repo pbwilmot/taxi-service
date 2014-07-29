@@ -1,5 +1,5 @@
 {
-  "name": "tazi-service-api",
+  "name": "taxi-service-api",
   "version": "0.0.1",
   "description": "A demo REST api for a taxi service",
   "main": "server.js",
