@@ -19,9 +19,9 @@ var expect = require('expect.js')
 
 suite('Driver Tests', function(){
 	// TODO(pwilmot) replace these with config variables
-	const var port = 3000
-	const var root = "http://localhost:" + port + "/taxiservice/"
-	const var user_sufix = "/user"
+var port = 8080
+var root = "http://localhost:" + port + "/taxiservice/"
+var user_sufix = "/user"
 
 	var id
 
@@ -120,4 +120,4 @@ suite('Driver Tests', function(){
 
   	// TODO(pwilmot) confirm that the get request now returns null
 
-}
+})

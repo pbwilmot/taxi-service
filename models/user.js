@@ -10,8 +10,8 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
-	name: String
-	phone: String  // TODO(pwilmot) validate phone #
+	name: String,
+	phone: String,  // TODO(pwilmot) validate phone #
 	loc: []
 });
 

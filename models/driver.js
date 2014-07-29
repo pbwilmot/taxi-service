@@ -9,7 +9,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var DriverSchema   = new Schema({
-	active: Boolean
+	active: Boolean,
 	loc: []
 });
 
