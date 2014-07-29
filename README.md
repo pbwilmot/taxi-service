@@ -1,27 +1,21 @@
-A taxi server REST API
+A taxi service REST API
 
-Entities : 
+Entities: 
 ****
 driver {
   _id
-  num reviews :
-  average rating :
-  name :
-  phone# :
-  picture :
-  active : 
+  active: 
   loc {lat, long} :
 }
 
 user {
   _id
-  num trips:
-  average rating:
-  phone# :
+  name:
+  phone:
   loc{lat, long}
 }
 
-Endpoints : 
+Endpoints: 
 ****
 POST -d {driver} /taxiservice/driver
 GET(all) /taxiservice/driver
@@ -32,7 +26,7 @@ DELETE /taxiservice/driver/{_id}
 POST -d {user} /taxiservice/user
 GET(all) /taxiservice/user
 GET /taxiservice/user/{_id}
-PUT -d {driver} /taxiservice/user/{_id}
+PUT -d {user} /taxiservice/user/{_id}
 DELETE /taxiservice/user/{_id}
 
 GET /taxiservice/driver/closest/{loc}
