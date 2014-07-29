@@ -71,40 +71,40 @@ router.use(function(req, res, next) {
 router.route(DRIVER_ROOT)
 
 	
-	.post(function(req, res) { postDriver(req, res) })
+	.post(function(req, res) { postDriver(req, res); })
 
 	
-	.get(function(req, res) { getAllDrivers(req, res) });
+	.get(function(req, res) { getAllDrivers(req, res); });
 
 // on routes /driver/:_id	
 // ----------------------------------------------------
 router.route(DRIVER_ROOT + ID_ROOT)
 
-	.get(function(req, res) { getDriverById(req, res) })
+	.get(function(req, res) { getDriverById(req, res); })
 
-	.put(function(req, res) { updateDriver(req, res) })
+	.put(function(req, res) { updateDriver(req, res); })
 
-	.delete(function(req, res) { deleteDriver(req, res) });
+	.delete(function(req, res) { deleteDriver(req, res); });
 	
 // on routes /user
 // ----------------------------------------------------
 router.route(USER_ROOT)
 
 	
-	.post(function(req, res) { postUser(req, res) })
+	.post(function(req, res) { postUser(req, res); })
 
 	
-	.get(function(req, res) { getAllUsers(req, res) });
+	.get(function(req, res) { getAllUsers(req, res); });
 
 // on routes /user/:_id	
 // ----------------------------------------------------
 router.route(USER_ROOT + ID_ROOT)
 
-	.get(function(req, res) { getUserById(req, res) })
+	.get(function(req, res) { getUserById(req, res); })
 
-	.put(function(req, res) { updateUser(req, res) })
+	.put(function(req, res) { updateUser(req, res); })
 
-	.delete(function(req, res) { deleteUser(req, res) });
+	.delete(function(req, res) { deleteUser(req, res); });
 
 // USER FUNCTIONS
 //  ===========================================================================
@@ -113,8 +113,8 @@ router.route(USER_ROOT + ID_ROOT)
 function postUser(req, res) {
 	// create a new instance of the Driver model
 	var user = new User();
-	user.name = req.body.name
-	user.phone = req.body.phone
+	user.name = req.body.name;
+	user.phone = req.body.phone;
 	user.loc = req.body.loc;
 
 	user.save(function(err) {
@@ -156,8 +156,8 @@ function updateUser(req, res) {
 			res.send(err);
 		}
 
-		user.name = req.body.name
-		user.phone = req.body.phone
+		user.name = req.body.name;
+		user.phone = req.body.phone;
 		user.loc = req.body.loc;
 
 		user.save(function(err) {
