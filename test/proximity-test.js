@@ -1,15 +1,7 @@
 /*
- * This is an integration test to validate 
- * finding the closest taxi driver to a given user
-*/
-// San Francisco coords
-// -122.419416, 37.77493
-// -122.424565, 37.776727
-// -122.430595, 37.779475
-// -122.437526, 37.781646
-
-// Other coord
-// 4.881217, 52.36518
+ * Copyright(c) 2014 Peter Wilmot
+ * MIT Licensed
+ */
 
 // *NOTE* Coordinate-axis order is longitude, latitude
 var SAN_FRANCISCO_COORDS = [[-122.419416, 37.77493], [-122.424565, 37.776727],
