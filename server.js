@@ -25,7 +25,8 @@ var app        	= express();
 // custom logger to pass express logging to winston
 var winstonStream = {
     write: function(str){
-        winston.info(str);
+    	// remove the newline
+        winston.info(str.slice(0, -1));
     }
 };
 
@@ -34,7 +35,8 @@ app.use(bodyParser());
 app.use(morgan('short', {stream:winstonStream}));
 
 // Create a log file based on ts
-winston.add(winston.transports.File, { filename: 'logs_' + new Date() / 1000 + '.log' });
+winston.add(winston.transports.File,
+	{ filename: 'logs_' + new Date() / 1000 + '.log' });
 // winston.remove(winston.transports.Console);
 
 var port     	= process.env.PORT || 8080; // set our port
@@ -60,28 +62,28 @@ var router = express.Router();
 // on routes /taxiservice
 // ----------------------------------------------------
 router.route('')
-	.get(function(req, res) { 
+	.get(function(req, res) {
 		if (req.query.loc == null || req.query.loc.length !== 2) {
 			// *NOTE* Coordinate-axis order is longitude, latitude
 			res.send('invalid geoPoint.  make sure loc is of the form [ long, lat ]');
 		}
 
-		var maxDistance = req.query.maxDistance != null ? 
-				req.query.maxDistance 
+		var maxDistance = req.query.maxDistance != null ?
+				req.query.maxDistance
 					: DEFAULT_PROXIMITY_QUERY_DISTANCE;
-		var limit = req.query.limit != null ? 
-				req.query.limit 
+		var limit = req.query.limit != null ?
+				req.query.limit
 					: DEFAULT_PROXIMITY_QUERY_LIMIT;
 		var lng = parseFloat(req.query.loc[0]);
 		var lat = parseFloat(req.query.loc[1]);
 
-		Driver.find({ 
-			loc : { 
+		Driver.find({
+			loc : {
 				$near: { // Get drivers that are near the given coordinates
-					$geometry : 
+					$geometry :
 						{ type : 'Point' , coordinates : [ lng, lat ] },
 					$maxDistance: maxDistance
-				}		
+				}
 			},
 			  active : true	// Only return drivers that are active	
 		}).limit(limit) // limit the number of results
