@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "make test"
+    "test": "make test",
+    "validate": "make style"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
     "email": "peter@engagehd.com",
     "url": "https://github.com/pbwilmot"
   },
-  "license": "The MIT License (MIT)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pbwilmot/taxi-service-api/issues"
   },

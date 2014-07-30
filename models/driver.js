@@ -1,10 +1,7 @@
 /*
-driver {
-  _id
-  active: 
-  loc {lat, long} :
-}
-*/
+ * Copyright(c) 2014 Peter Wilmot
+ * MIT Licensed
+ */
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 

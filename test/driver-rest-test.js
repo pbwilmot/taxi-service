@@ -1,20 +1,8 @@
 /*
-
-driver {
-  _id
-  active : 
-  loc {lat, long} :
-}
-
-POST -d {driver} /taxiservice/driver
-GET(all) /taxiservice/driver
-GET /taxiservice/driver/{_id}
-PUT -d {driver} /taxiservice/driver/{_id}
-DELETE /taxiservice/driver/{_id}
-
-GET /taxiservice/driver/closest/{loc}
-
-*/
+ * Copyright(c) 2014 Peter Wilmot
+ * MIT Licensed
+ */
+ 
 var superagent = require('superagent');
 var expect = require('expect.js');
 

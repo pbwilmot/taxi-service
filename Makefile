@@ -6,6 +6,6 @@ test:
 	        --ui tdd
 
 style:
-		jshint server.js test/* models/*
+		jshint server.js test/* models/* api/*
 
 .PHONY: test style

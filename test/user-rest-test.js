@@ -1,19 +1,8 @@
 /*
-
-user {
-  _id
-  name :
-  phone :
-  loc{lat, long}
-}
-
-POST -d {user} /taxiservice/user
-GET(all) /taxiservice/user
-GET /taxiservice/user/{_id}
-PUT -d {user} /taxiservice/user/{_id}
-DELETE /taxiservice/user/{_id}
-
-*/
+ * Copyright(c) 2014 Peter Wilmot
+ * MIT Licensed
+ */
+ 
 var superagent = require('superagent');
 var expect = require('expect.js');
 
