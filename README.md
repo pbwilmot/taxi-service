@@ -24,7 +24,7 @@ user: { _id, name, phone, loc: { lat, long } }
 Endpoints: 
 ```
 // Nearby Drivers
-GET /taxiservice?loc=<longitude>&?loc=latitude?maxDistance=?limit=
+GET /taxiservice?loc=<longitude>&?loc=<latitude>?maxDistance=?limit=
 query parameters {
   // *NOTE* Coordinate-axis order is longitude, latitude
   loc : [ <longitude>, <latitude> ], // The location from which to find nearby drivers
