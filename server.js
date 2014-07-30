@@ -28,7 +28,7 @@ var mongoose   	= require('mongoose');
 mongoose.connect('mongodb://@localhost:27017/' + db); // connect to our database
 
 // Models
-var Driver   = require('./models/driver');
+var Driver   	= require('./models/driver');
 var User		= require('./models/user');
 
 // APIs
@@ -106,10 +106,8 @@ router.route(DRIVER_ROOT + ID_ROOT)
 // on routes /taxiservice/user
 // ----------------------------------------------------
 router.route(USER_ROOT)
-
 	
 	.post(userAPI.postUser)
-
 	
 	.get(userAPI.getAllUsers);
 
