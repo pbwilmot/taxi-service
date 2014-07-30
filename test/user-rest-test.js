@@ -17,7 +17,7 @@ DELETE /taxiservice/user/{_id}
 var superagent = require('superagent');
 var expect = require('expect.js');
 
-suite('Driver Tests', function(){
+suite('Users Tests', function(){
 	// TODO(pwilmot) replace these with config variables
   var port = 8080;
   var root = 'http://localhost:' + port + '/taxiservice/';
@@ -76,7 +76,7 @@ suite('Driver Tests', function(){
     .send({ name: 'Peter', 
       phone: '(111)111-1111)',
       active: false,
-      loc: [ 37.77493, -122.419416 ],
+      loc: [ -122.419416, 37.77493 ],
     })
     .end(function(e, res){
       // console.log(res.body)
@@ -99,7 +99,7 @@ suite('Driver Tests', function(){
       expect(res.body._id).to.eql(id);
       expect(res.body.name).to.eql('Peter');
       expect(res.body.phone).to.eql('(111)111-1111)');
-      expect(res.body.loc).to.eql([ 37.77493, -122.419416 ]);
+      expect(res.body.loc).to.eql([ -122.419416, 37.77493 ]);
       done();
     });
  });

@@ -73,7 +73,7 @@ suite('Driver Tests', function() {
   	superagent.put(root + driverSufix + '/' + id)
     // Update the diver's location and take him off duty
   	.send({ active: false,
-  			loc: [ 37.77493, -122.419416 ],
+  			loc: [ -122.419416, 37.77493 ],
   	})
   	.end(function(e, res){
       // console.log(res.body)
@@ -96,7 +96,7 @@ suite('Driver Tests', function() {
       expect(res.body._id.length).to.eql(24);
       expect(res.body._id).to.eql(id);
       expect(res.body.active).to.eql(false);
-      expect(res.body.loc).to.eql([ 37.77493, -122.419416 ]);
+      expect(res.body.loc).to.eql([ -122.419416, 37.77493, ]);
       done();
   	});
 	});

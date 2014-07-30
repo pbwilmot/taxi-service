@@ -5,4 +5,7 @@ test:
 	        --reporter $(REPORTER) \
 	        --ui tdd
 
-.PHONY: test
+style:
+		jshint server.js test/* models/*
+
+.PHONY: test style

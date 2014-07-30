@@ -33,6 +33,8 @@ var ROOT 		= '/taxiservice';
 var DRIVER_ROOT = '/driver';
 var USER_ROOT 	= '/user';
 var ID_ROOT 	= '/:_id';
+var DEFAULT_PROXIMITY_QUERY_DISTANCE = 2000;
+var DEFAULT_PROXIMITY_QUERY_LIMIT = 10;
 // BASE SETUP
 // ============================================================================
 
@@ -66,17 +68,52 @@ router.use(function(req, res, next) {
 	next();
 });
 
-// on routes /driver
+// on routes /taxiservice
+// ----------------------------------------------------
+router.route('')
+	.get(function(req, res) { 
+		if (req.query.loc == null || req.query.loc.length !== 2) {
+			// *NOTE* Coordinate-axis order is longitude, latitude
+			res.send('invalid geoPoint.  make sure loc is of the form [ long, lat ]');
+		}
+
+		var maxDistance = req.query.maxDistance != null ? 
+				req.query.maxDistance 
+					: DEFAULT_PROXIMITY_QUERY_DISTANCE;
+		var limit = req.query.limit != null ? 
+				req.query.limit 
+					: DEFAULT_PROXIMITY_QUERY_LIMIT;
+		var lng = parseFloat(req.query.loc[0]);
+		var lat = parseFloat(req.query.loc[1]);
+
+		Driver.find({ 
+			loc : { 
+				$near: { // Get drivers that are near the given coordinates
+					$geometry : 
+						{ type : 'Point' , coordinates : [ lng, lat ] },
+					$maxDistance: maxDistance
+				}		
+			},
+			  active : true	// Only return drivers that are active	
+		}).limit(limit) // limit the number of results
+		.exec(function(err, drivers) {
+				if (err) {
+					console.log(err);
+					res.send(err);
+				}
+				res.send(drivers);
+		});
+	});
+
+// on routes /taxiservice/driver
 // ----------------------------------------------------
 router.route(DRIVER_ROOT)
-
 	
 	.post(function(req, res) { postDriver(req, res); })
-
 	
 	.get(function(req, res) { getAllDrivers(req, res); });
 
-// on routes /driver/:_id	
+// on routes /taxiservice/driver/:_id	
 // ----------------------------------------------------
 router.route(DRIVER_ROOT + ID_ROOT)
 
@@ -86,7 +123,7 @@ router.route(DRIVER_ROOT + ID_ROOT)
 
 	.delete(function(req, res) { deleteDriver(req, res); });
 	
-// on routes /user
+// on routes /taxiservice/user
 // ----------------------------------------------------
 router.route(USER_ROOT)
 
@@ -96,7 +133,7 @@ router.route(USER_ROOT)
 	
 	.get(function(req, res) { getAllUsers(req, res); });
 
-// on routes /user/:_id	
+// on routes /taxiservice/user/:_id	
 // ----------------------------------------------------
 router.route(USER_ROOT + ID_ROOT)
 
@@ -119,6 +156,7 @@ function postUser(req, res) {
 
 	user.save(function(err) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(user);
@@ -130,6 +168,7 @@ function postUser(req, res) {
 function getAllUsers(req, res) {
 	User.find(function(err, users) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(users);
@@ -141,6 +180,7 @@ function getAllUsers(req, res) {
 function getUserById(req, res) {
 	User.findById(req.params._id, function(err, user) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(user);
@@ -153,6 +193,7 @@ function updateUser(req, res) {
 	User.findById(req.params._id, function(err, user) {
 
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 
@@ -162,6 +203,7 @@ function updateUser(req, res) {
 
 		user.save(function(err) {
 			if (err) {
+				console.log(err);
 				res.send(err);
 			}
 			res.send({ msg: 'success' });
@@ -177,6 +219,7 @@ function deleteUser(req, res) {
 		_id: req.params._id
 	}, function(err, user) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 
@@ -197,6 +240,7 @@ function postDriver(req, res) {
 
 	driver.save(function(err) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(driver);
@@ -208,6 +252,7 @@ function postDriver(req, res) {
 function getAllDrivers(req, res) {
 	Driver.find(function(err, drivers) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(drivers);
@@ -219,6 +264,7 @@ function getAllDrivers(req, res) {
 function getDriverById(req, res) {
 	Driver.findById(req.params._id, function(err, driver) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 		res.send(driver);
@@ -231,6 +277,7 @@ function updateDriver(req, res) {
 	Driver.findById(req.params._id, function(err, driver) {
 
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 
@@ -238,6 +285,7 @@ function updateDriver(req, res) {
 		driver.loc = req.body.loc;
 		driver.save(function(err) {
 			if (err) {
+				console.log(err);
 				res.send(err);
 			}
 			res.send({ msg: 'success' });
@@ -253,6 +301,7 @@ function deleteDriver(req, res) {
 		_id: req.params._id
 	}, function(err, driver) {
 		if (err) {
+			console.log(err);
 			res.send(err);
 		}
 

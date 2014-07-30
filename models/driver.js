@@ -10,7 +10,8 @@ var Schema       = mongoose.Schema;
 
 var DriverSchema   = new Schema({
 	active: Boolean,
-	loc: []
+	// *NOTE* Coordinate-axis order is longitude, latitude
+	loc: {type: [], index: '2dsphere' }
 });
 
 module.exports = mongoose.model('Driver', DriverSchema);

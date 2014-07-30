@@ -23,12 +23,24 @@ user: { _id, name, phone, loc: { lat, long } }
 
 Endpoints: 
 ```
+// Nearby Drivers
+GET /taxiservice
+query parameters {
+  // *NOTE* Coordinate-axis order is longitude, latitude
+  loc : [ <longitude>, <latitude> ], // The location from which to find nearby 
+drivers
+  maxDistance,  // the maximum distance to look for drivers
+  limit         // max number of drivers to return
+}
+
+// Drivers
 POST -d {driver} /taxiservice/driver
 GET(all) /taxiservice/driver
 GET /taxiservice/driver/{_id}
 PUT -d {driver} /taxiservice/driver/{_id}
 DELETE /taxiservice/driver/{_id}
 
+// Users
 POST -d {user} /taxiservice/user
 GET(all) /taxiservice/user
 GET /taxiservice/user/{_id}
@@ -38,5 +50,6 @@ DELETE /taxiservice/user/{_id}
 
 TODO:
 ```
-GET /taxiservice/driver/closest/{loc}
+monitoring : integrate a reporting library to log to a file and keep track of 
+how long each request takes.
 ```
