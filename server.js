@@ -109,45 +109,45 @@ router.route('')
 // ----------------------------------------------------
 router.route(DRIVER_ROOT)
 	
-	.post(function(req, res) { postDriver(req, res); })
+	.post(postDriver)
 	
-	.get(function(req, res) { getAllDrivers(req, res); });
+	.get(getAllDrivers);
 
 // on routes /taxiservice/driver/:_id	
 // ----------------------------------------------------
 router.route(DRIVER_ROOT + ID_ROOT)
 
-	.get(function(req, res) { getDriverById(req, res); })
+	.get(getDriverById)
 
-	.put(function(req, res) { updateDriver(req, res); })
+	.put(updateDriver)
 
-	.delete(function(req, res) { deleteDriver(req, res); });
+	.delete(deleteDriver);
 	
 // on routes /taxiservice/user
 // ----------------------------------------------------
 router.route(USER_ROOT)
 
 	
-	.post(function(req, res) { postUser(req, res); })
+	.post(postUser)
 
 	
-	.get(function(req, res) { getAllUsers(req, res); });
+	.get(getAllUsers);
 
 // on routes /taxiservice/user/:_id	
 // ----------------------------------------------------
 router.route(USER_ROOT + ID_ROOT)
 
-	.get(function(req, res) { getUserById(req, res); })
+	.get(getUserById)
 
-	.put(function(req, res) { updateUser(req, res); })
+	.put(updateUser)
 
-	.delete(function(req, res) { deleteUser(req, res); });
+	.delete(deleteUser);
 
 // USER FUNCTIONS
 //  ===========================================================================
 // create a User
 // accessed at POST -d {user} /taxiservice/user
-function postUser(req, res) {
+var postUser = function postUser(req, res) {
 	// create a new instance of the Driver model
 	var user = new User();
 	user.name = req.body.name;
@@ -161,11 +161,11 @@ function postUser(req, res) {
 		}
 		res.send(user);
 	});
-}
+};
 
 // get all the Drivers 
 // accessed at GET /taxiservice/driver
-function getAllUsers(req, res) {
+var getAllUsers = function getAllUsers(req, res) {
 	User.find(function(err, users) {
 		if (err) {
 			console.log(err);
@@ -173,11 +173,11 @@ function getAllUsers(req, res) {
 		}
 		res.send(users);
 	});
-}
+};
 
 // get the User with that id 
 //accessed at GET /taxiservice/user/:_id
-function getUserById(req, res) {
+var getUserById = function getUserById(req, res) {
 	User.findById(req.params._id, function(err, user) {
 		if (err) {
 			console.log(err);
@@ -185,11 +185,11 @@ function getUserById(req, res) {
 		}
 		res.send(user);
 	});
-}
+};
 
 // update the user with this id 
 // accessed at PUT -d {user} /taxiservice/user/:id
-function updateUser(req, res) {
+var updateUser = function updateUser(req, res) {
 	User.findById(req.params._id, function(err, user) {
 
 		if (err) {
@@ -210,11 +210,11 @@ function updateUser(req, res) {
 		});
 
 	});
-}
+};
 
 // delete the user with this id 
 // accessed at DELETE /taxiservice/user/:id
-function deleteUser(req, res) {
+var deleteUser = function deleteUser(req, res) {
 	User.remove({
 		_id: req.params._id
 	}, function(err, user) {
@@ -225,14 +225,14 @@ function deleteUser(req, res) {
 
 		res.send({ msg: 'success' });
 	});
-}
+};
 
 // DRIVER FUNCTIONS
 //  ===========================================================================
 
 // create a Driver 
 // accessed at POST -d {driver} /taxiservice/driver
-function postDriver(req, res) {
+var postDriver = function postDriver(req, res) {
 	// create a new instance of the Driver model
 	var driver = new Driver();
 	driver.active = req.body.active;
@@ -245,11 +245,11 @@ function postDriver(req, res) {
 		}
 		res.send(driver);
 	});
-}
+};
 
 // get all the Drivers 
 // accessed at GET /taxiservice/driver
-function getAllDrivers(req, res) {
+var getAllDrivers = function getAllDrivers(req, res) {
 	Driver.find(function(err, drivers) {
 		if (err) {
 			console.log(err);
@@ -257,11 +257,11 @@ function getAllDrivers(req, res) {
 		}
 		res.send(drivers);
 	});
-}
+};
 
 // get the Driver with that id 
 //accessed at GET /taxiservice/driver/:_id
-function getDriverById(req, res) {
+var getDriverById = function getDriverById(req, res) {
 	Driver.findById(req.params._id, function(err, driver) {
 		if (err) {
 			console.log(err);
@@ -269,11 +269,11 @@ function getDriverById(req, res) {
 		}
 		res.send(driver);
 	});
-}
+};
 
 // update the driver with this id 
 // accessed at PUT -d {driver} /taxiservice/driver/:id
-function updateDriver(req, res) {
+var updateDriver = function updateDriver(req, res) {
 	Driver.findById(req.params._id, function(err, driver) {
 
 		if (err) {
@@ -292,11 +292,11 @@ function updateDriver(req, res) {
 		});
 
 	});
-}
+};
 
 // delete the driver with this id 
 // accessed at DELETE /taxiservice/driver/:id
-function deleteDriver(req, res) {
+var deleteDriver = function deleteDriver(req, res) {
 	Driver.remove({
 		_id: req.params._id
 	}, function(err, driver) {
@@ -307,7 +307,7 @@ function deleteDriver(req, res) {
 
 		res.send({ msg: 'success' });
 	});
-}
+};
 
 // ** USER ROUTES **
 
