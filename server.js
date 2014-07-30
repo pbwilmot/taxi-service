@@ -13,13 +13,29 @@ var DEFAULT_PROXIMITY_QUERY_LIMIT = 10;
 // BASE SETUP
 // ============================================================================
 
-// call the packages we need
+// load packages
 var express    	= require('express');
 var bodyParser 	= require('body-parser');
+var morgan  	= require('morgan');
+var winston 	= require('winston');
+
+// create app
 var app        	= express();
+
+// custom logger to pass express logging to winston
+var winstonStream = {
+    write: function(str){
+        winston.info(str);
+    }
+};
 
 // configure app
 app.use(bodyParser());
+app.use(morgan('short', {stream:winstonStream}));
+
+// Create a log file based on ts
+winston.add(winston.transports.File, { filename: 'logs_' + new Date() / 1000 + '.log' });
+// winston.remove(winston.transports.Console);
 
 var port     	= process.env.PORT || 8080; // set our port
 var db 		 	= 'taxiservice';
@@ -40,13 +56,6 @@ var userAPI		= require('./api/user');
 
 // create our router
 var router = express.Router();
-
-// simple logger for this router's requests
-// all requests to this router will first hit this middleware
-router.use(function(req, res, next) {
-	console.log('%s %s', req.method, req.url);
-	next();
-});
 
 // on routes /taxiservice
 // ----------------------------------------------------
