@@ -24,11 +24,10 @@ user: { _id, name, phone, loc: { lat, long } }
 Endpoints: 
 ```
 // Nearby Drivers
-GET /taxiservice
+GET /taxiservice?loc=<longitude>&loc=<latitude>&maxDistance=&limit=
 query parameters {
   // *NOTE* Coordinate-axis order is longitude, latitude
-  loc : [ <longitude>, <latitude> ], // The location from which to find nearby 
-drivers
+  loc : [ <longitude>, <latitude> ], // The location from which to find nearby drivers
   maxDistance,  // the maximum distance to look for drivers
   limit         // max number of drivers to return
 }
@@ -50,6 +49,5 @@ DELETE /taxiservice/user/{_id}
 
 TODO:
 ```
-monitoring : integrate a reporting library to log to a file and keep track of 
-how long each request takes.
+monitoring : integrate a monitoring/reporting library
 ```
