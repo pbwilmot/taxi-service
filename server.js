@@ -42,8 +42,11 @@ winston.add(winston.transports.File,
 var port     	= process.env.PORT || 8080; // set our port
 var db 		 	= 'taxiservice';
 
+var mongoUri = process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://@localhost:27017/' + db;
 var mongoose   	= require('mongoose');
-mongoose.connect('mongodb://@localhost:27017/' + db); // connect to our database
+mongoose.connect(mongoUri); // connect to database
 
 // Models
 var Driver   	= require('./models/driver');
