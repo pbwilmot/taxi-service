@@ -95,7 +95,8 @@ router.route('')
 					console.log(err);
 					res.send(err);
 				}
-				res.send(drivers);
+				console.log(drivers);
+				res.jsonp(drivers);
 		});
 	});
 
