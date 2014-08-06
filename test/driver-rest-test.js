@@ -8,7 +8,7 @@ var expect = require('expect.js');
 
 suite('Driver Tests', function() {
 	// TODO(pwilmot) replace these with config variables
-  var port = 8080;
+  var port = 9080;
   var root = 'http://localhost:' + port + '/taxiservice/';
   var driverSufix = '/driver';
 

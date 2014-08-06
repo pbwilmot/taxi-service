@@ -19,9 +19,9 @@ var postDriver = function postDriver(req, res) {
 	driver.save(function(err) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(driver);
+		return res.send(driver);
 	});
 };
 
@@ -31,9 +31,9 @@ var getAllDrivers = function getAllDrivers(req, res) {
 	Driver.find(function(err, drivers) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(drivers);
+		return res.send(drivers);
 	});
 };
 
@@ -43,9 +43,9 @@ var getDriverById = function getDriverById(req, res) {
 	Driver.findById(req.params._id, function(err, driver) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(driver);
+		return res.send(driver);
 	});
 };
 
@@ -56,7 +56,7 @@ var updateDriver = function updateDriver(req, res) {
 
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
 
 		driver.active = req.body.active;
@@ -64,9 +64,9 @@ var updateDriver = function updateDriver(req, res) {
 		driver.save(function(err) {
 			if (err) {
 				console.log(err);
-				res.send(err);
+				return res.send(err);
 			}
-			res.send({ msg: 'success' });
+			return res.send({ msg: 'success' });
 		});
 
 	});
@@ -80,10 +80,10 @@ var deleteDriver = function deleteDriver(req, res) {
 	}, function(err, driver) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
 
-		res.send({ msg: 'success' });
+		return res.send({ msg: 'success' });
 	});
 };
 

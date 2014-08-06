@@ -20,9 +20,9 @@ var postUser = function postUser(req, res) {
 	user.save(function(err) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(user);
+		return res.send(user);
 	});
 };
 
@@ -32,9 +32,9 @@ var getAllUsers = function getAllUsers(req, res) {
 	User.find(function(err, users) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(users);
+		return res.send(users);
 	});
 };
 
@@ -44,9 +44,9 @@ var getUserById = function getUserById(req, res) {
 	User.findById(req.params._id, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.send(user);
+		return res.send(user);
 	});
 };
 
@@ -57,7 +57,7 @@ var updateUser = function updateUser(req, res) {
 
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
 
 		user.name = req.body.name;
@@ -67,9 +67,9 @@ var updateUser = function updateUser(req, res) {
 		user.save(function(err) {
 			if (err) {
 				console.log(err);
-				res.send(err);
+				return res.send(err);
 			}
-			res.send({ msg: 'success' });
+			return res.send({ msg: 'success' });
 		});
 
 	});
@@ -83,10 +83,10 @@ var deleteUser = function deleteUser(req, res) {
 	}, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.send(err);
+			return res.send(err);
 		}
 
-		res.send({ msg: 'success' });
+		return res.send({ msg: 'success' });
 	});
 };
 

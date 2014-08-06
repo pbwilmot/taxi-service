@@ -17,7 +17,7 @@ var driverSufix = '/driver';
 
 suite('Proximity Tests', function(){
 	// TODO(pwilmot) replace these with config variables
-  var port = 8080;
+  var port = 9080;
   var root = 'http://localhost:' + port + '/taxiservice/';
 
   var ids = [];           // Ids of all enties for garbage collection

@@ -39,7 +39,7 @@ winston.add(winston.transports.File,
 	{ filename: 'logs_' + new Date() / 1000 + '.log' });
 // winston.remove(winston.transports.Console);
 
-var port     	= process.env.PORT || 8080; // set our port
+var port     	= process.env.PORT || 9080; // set our port
 var db 		 	= 'taxiservice';
 
 var mongoUri = process.env.MONGOLAB_URI ||
@@ -66,9 +66,9 @@ var router = express.Router();
 // ----------------------------------------------------
 router.route('')
 	.get(function(req, res) {
-		if (req.query.loc == null || req.query.loc.length !== 2) {
+		if (req.query == null || req.query.loc == null || req.query.loc.length !== 2) {
 			// *NOTE* Coordinate-axis order is longitude, latitude
-			res.send('invalid geoPoint.  make sure loc is of the form [ long, lat ]');
+			return res.send('invalid geoPoint.  make sure loc is of the form [ long, lat ]');
 		}
 
 		var maxDistance = req.query.maxDistance != null ?
